@@ -1,0 +1,16 @@
+Competencies 
+Rails has very powerful routing mechanisms
+By now, we should be familiar with 'resources'
+Nested resources come into play when you have models with associations
+Nested resources mean nested routes, this is illustrated in the routes.rb, written in a similar fashion to 
+nested loops/conditionals
+The actual path looks like articles/:article_id/comments/[action]
+
+
+Applications
+Implement nested routes/resources in Rails applications
+
+
+
+Resources:
+http://guides.rubyonrails.org/routing.html
