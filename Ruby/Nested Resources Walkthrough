@@ -36,3 +36,55 @@ update your posts routes to be
 Generate a comments controller
 > rails g controller Comments
 
+Edit your articles show to have the comment form inside
+
+// in articles/show.html.erb
+    <h2>Add a comment:</h2>
+    <%= form_with(model: [ @article, @article.comments.build], local: true) do |form| %>
+	<p>
+		<%= form.label :commenter %><br>
+		<%= form.text_field :commenter %>
+	</p>
+	<p>
+		<%= form.label :body %><br>
+		<%= form.text_area :body %>
+	</p>
+	<p>
+		<%= form.submit %>
+	</p>
+
+    <% end %>
+
+Now the comment controller needs to be built out. Start with the create action to make a new comment
+>   def create 
+		@article = Article.find(params[:article_id])
+		@comment = @article.comments.create(comment_params)
+		redirect_to article_path(@article)		
+	end
+
+	private 
+
+	def comment_params
+		params.require(:comment).permit(:commenter, :body)
+	end
+    
+Edit the articles show again to also display the comments
+// in articles/show.html.erb
+
+> <h2>Comments</h2>
+    <% @article.comments.each do |comment| %>
+	<p>
+		<strong>Commenter:</strong>
+		<%= comment.commenter %>
+	</p>
+
+	<p>
+		<strong>Comment:</strong>
+		<%= comment.body %>
+	</p>
+    ----------
+    <% end %>
+    
+
+Give it a shot
+
