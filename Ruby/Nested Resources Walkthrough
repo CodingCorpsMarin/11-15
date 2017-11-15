@@ -1,0 +1,33 @@
+Last time out I had a lot of questions on how to add comments to posts
+Most broadly, this is an issue called 'nested resources'
+
+This will be a quick and dirty example of simply adding comments to a generic blog
+
+Work in an existing application or new one:
+
+
+This is assuming you have an app with your models set up, in this case, Post
+
+Generate the Comment model
+rails g model comment commenter:string body:text post_id:integer
+This creates a model and migration for a comment which has a commenter that identifies who is commenting, a body for the actual comment, 
+and a post_id that identifies the post it will be attached to
+
+In your models, add your associations
+
+> class Comment < ApplicationRecord
+    belongs_to :post
+  end 
+ Comments will belong to posts
+  
+> class Post < ApplicationRecord
+    has_many :comments
+  end
+Posts will have many comments
+This is a one-to-many relationship
+
+In your routes.rb 
+update your posts routes to be 
+> resources :posts do
+    resources :comments
+  end
