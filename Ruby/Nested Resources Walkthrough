@@ -6,28 +6,33 @@ This will be a quick and dirty example of simply adding comments to a generic bl
 Work in an existing application or new one:
 
 
-This is assuming you have an app with your models set up, in this case, Post
+This is assuming you have an app with your models set up, in this case, Article
 
 Generate the Comment model
-rails g model comment commenter:string body:text post_id:integer
+rails g model comment commenter:string body:text article:references
 This creates a model and migration for a comment which has a commenter that identifies who is commenting, a body for the actual comment, 
-and a post_id that identifies the post it will be attached to
-
+and an article that it will reference
 In your models, add your associations
 
 > class Comment < ApplicationRecord
-    belongs_to :post
+    belongs_to :article
   end 
  Comments will belong to posts
   
-> class Post < ApplicationRecord
+> class Article < ApplicationRecord
     has_many :comments
   end
-Posts will have many comments
+Articles will have many comments
 This is a one-to-many relationship
+
+Migrate your DB
 
 In your routes.rb 
 update your posts routes to be 
-> resources :posts do
+> resources :articles do
     resources :comments
   end
+
+Generate a comments controller
+> rails g controller Comments
+
