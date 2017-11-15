@@ -14,3 +14,5 @@ Implement nested routes/resources in Rails applications
 
 Resources:
 http://guides.rubyonrails.org/routing.html
+
+Note - it is not @article = Article.find(params[:id]), it is actually @article = Article.find(params[:article_id])
